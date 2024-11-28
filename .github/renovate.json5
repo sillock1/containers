@@ -14,7 +14,7 @@
     "openttd": {
       "defaultRegistryUrlTemplate": "https://cdn.openttd.org/openttd-releases",
       "format": "html"
-    }
+    },
     "opengfx": {
       "defaultRegistryUrlTemplate": "https://cdn.openttd.org/opengfx-releases",
       "format": "html"
