@@ -1,3 +1,4 @@
+
 # renovate: datasource=custom.openttd depName=openttd versioning=loose
 ARG VERSION=13.4
 # renovate: datasource=custom.opengfx depName=opengfx versioning=loose
