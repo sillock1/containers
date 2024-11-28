@@ -5,8 +5,7 @@ ARG VERSION
 
 WORKDIR /app
 
-RUN apt update
-RUN apt install -y \
+RUN apt update && apt install -y \
   bash \
   curl \
   ca-certificates \
@@ -40,8 +39,11 @@ RUN mkdir -p /app/openttd/baseset \
 
 COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 RUN chown -R nobody:nogroup /app
+
 VOLUME ["/config"]
+
 USER nobody:nogroup
+
 EXPOSE 3979/tcp
 EXPOSE 3979/udp
 
