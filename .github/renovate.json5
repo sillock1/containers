@@ -70,7 +70,7 @@
       "customType": "regex",
       "description": "Update OpenTTD version in Dockerfile",
       "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-      "matchStrings": ["ENV OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
+      "matchStrings": ["ARG OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": "openttd",
       "datasourceTemplate": "custom.openttd"
     },
@@ -78,7 +78,7 @@
       "customType": "regex",
       "description": "Update OpenTTD version in Dockerfile",
       "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-      "matchStrings": ["ENV OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
+      "matchStrings": ["ARG OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": "opengfx",
       "datasourceTemplate": "custom.opengfx"
     }
