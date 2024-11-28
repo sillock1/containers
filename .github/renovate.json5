@@ -68,11 +68,19 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update _VERSION variables in Dockerfiles",
+      "description": "Update OpenTTD version in Dockerfile",
       "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s(?:ENV|ARG) .+?_VERSION=(?<currentValue>.+?)\\s"
-      ]
+      "matchStrings": ["ENV OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
+      "depNameTemplate": "openttd",
+      "datasourceTemplate": "custom.openttd"
+    },
+    {
+      "customType": "regex",
+      "description": "Update OpenTTD version in Dockerfile",
+      "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
+      "matchStrings": ["ENV OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
+      "depNameTemplate": "opengfx",
+      "datasourceTemplate": "custom.opengfx"
     }
   ]
 }
