@@ -7,7 +7,7 @@ echo $autosave
 
 if [ -z ${SAVEFILE} ]; then
   echo "Loading save ${latestAutosave}"
-  save = ${SAVEFILE}
+  save=${SAVEFILE}
 elif [ ! -z ${autosave} ]; then
   echo "Loading autosave file ${autosave}"
   save=$autosave
