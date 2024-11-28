@@ -1,6 +1,6 @@
 
 # renovate: datasource=custom.openttd depName=openttd versioning=loose
-ARG VERSION=13.4
+ARG OPENTTD_VERSION=13.4
 # renovate: datasource=custom.opengfx depName=opengfx versioning=loose
 ARG OPENGFX_VERSION=7.0
 FROM docker.io/library/debian:12.8-slim
@@ -30,9 +30,9 @@ RUN apt install -y \
 
 
 RUN mkdir -p /app/openttd \
-  && curl -fsSL https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-amd64.tar.xz \
+  && curl -fsSL https://cdn.openttd.org/openttd-releases/${OPENTTD_VERSION}/openttd-${OPENTTD_VERSION}-linux-generic-amd64.tar.xz \
   | tar xJf - -C /tmp \
-  && mv /tmp/openttd-${VERSION}-linux-generic-amd64/* /app/openttd
+  && mv /tmp/openttd-${OPENTTD_VERSION}-linux-generic-amd64/* /app/openttd
 
 RUN mkdir -p /app/openttd/baseset \
   && curl -fsSL https://cdn.openttd.org/opengfx-releases/${OPENGFX_VERSION}/opengfx-${OPENGFX_VERSION}-all.zip \

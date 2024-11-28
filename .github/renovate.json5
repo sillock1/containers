@@ -76,9 +76,9 @@
     },
     {
       "customType": "regex",
-      "description": "Update OpenTTD version in Dockerfile",
+      "description": "Update OpenGFX version in Dockerfile",
       "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-      "matchStrings": ["ARG OPENTTD_VERSION=(?<currentValue>.*?)\\n"],
+      "matchStrings": ["ARG OPENGFX_VERSION=(?<currentValue>.*?)\\n"],
       "depNameTemplate": "opengfx",
       "datasourceTemplate": "custom.opengfx"
     }
