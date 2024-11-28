@@ -3,27 +3,13 @@ ARG VERSION
 FROM docker.io/library/debian:12.8-slim as build
 ARG VERSION
 
-WORKDIR /app
-
 RUN apt update && apt install -y \
-  bash \
   curl \
-  ca-certificates \
-  catatonit \
-  wget \
   xz-utils \
   yq \
-  libarchive-tools \
-  libfontconfig1 \
-  libfreetype6 \
-  libfluidsynth3 \
-  libicu-dev \
-  libpng16-16 \
-  liblzma-dev \
-  liblzo2-2 \
-  libsdl1.2debian \
-  libsdl2-2.0-0
+  libarchive-tools
 
+WORKDIR /app
 
 RUN mkdir -p /app/openttd \
   && curl -fsSL https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-amd64.tar.xz \
@@ -38,10 +24,19 @@ RUN mkdir -p /app/openttd/baseset \
   && tar xf /tmp/opengfx*.tar -C /tmp \
   && mv /tmp/opengfx*/* /app/openttd/baseset
 
-FROM build as final
-
-COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 RUN chown -R nobody:nogroup /app
+
+FROM docker.io/library/debian:12.8-slim as final
+
+RUN apt update && apt install -y \
+  libglib2.0-0 \
+  libgomp1 \
+  curl \
+  catatonit \
+  ca-certificates
+
+COPY --from=build /app /app
+COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 
 VOLUME ["/config"]
 
