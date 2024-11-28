@@ -1,11 +1,7 @@
 
-# renovate: datasource=custom.openttd depName=openttd versioning=loose
-ARG OPENTTD_VERSION=13.4
-# renovate: datasource=custom.opengfx depName=opengfx versioning=loose
-ARG OPENGFX_VERSION=7.0
+ARG VERSION
 FROM docker.io/library/debian:12.8-slim
 ARG VERSION
-ARG OPENGFX_VERSION
 
 WORKDIR /app
 
@@ -30,15 +26,17 @@ RUN apt install -y \
 
 
 RUN mkdir -p /app/openttd \
-  && curl -fsSL https://cdn.openttd.org/openttd-releases/${OPENTTD_VERSION}/openttd-${OPENTTD_VERSION}-linux-generic-amd64.tar.xz \
+  && curl -fsSL https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-amd64.tar.xz \
   | tar xJf - -C /tmp \
-  && mv /tmp/openttd-${OPENTTD_VERSION}-linux-generic-amd64/* /app/openttd
+  && mv /tmp/openttd-${VERSION}-linux-generic-amd64/* /app/openttd
 
 RUN mkdir -p /app/openttd/baseset \
-  && curl -fsSL https://cdn.openttd.org/opengfx-releases/${OPENGFX_VERSION}/opengfx-${OPENGFX_VERSION}-all.zip \
+  && curl -sX GET https://cdn.openttd.org/opengfx-releases/latest.yaml \
+  | yq .latest[0].version \
+  | xargs -I {} curl -fsSL https://cdn.openttd.org/opengfx-releases/{}/opengfx-{}-all.zip \
   | bsdtar -xvf - -C /tmp \
-  && tar xf /tmp/opengfx-${OPENGFX_VERSION}.tar -C /tmp \
-  && mv /tmp/opengfx-${OPENGFX_VERSION}/* /app/openttd/baseset
+  && tar xf /tmp/opengfx*.tar -C /tmp \
+  && mv /tmp/opengfx*/* /app/openttd/baseset
 
 COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 RUN chown -R nobody:nogroup /app
