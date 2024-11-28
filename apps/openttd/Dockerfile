@@ -2,7 +2,7 @@
 # renovate: datasource=custom.openttd depName=openttd versioning=loose
 ARG OPENTTD_VERSION=13.4
 # renovate: datasource=custom.opengfx depName=opengfx versioning=loose
-ARG OPENGFX_VERSION=7.0
+ARG OPENGFX_VERSION=7.1
 FROM docker.io/library/debian:12.8-slim
 ARG VERSION
 ARG OPENGFX_VERSION
