@@ -1,6 +1,6 @@
 
 ARG VERSION
-FROM docker.io/library/debian:12.8-slim
+FROM docker.io/library/debian:12.8-slim as build
 ARG VERSION
 
 WORKDIR /app
@@ -37,6 +37,8 @@ RUN mkdir -p /app/openttd/baseset \
   | bsdtar -xvf - -C /tmp \
   && tar xf /tmp/opengfx*.tar -C /tmp \
   && mv /tmp/opengfx*/* /app/openttd/baseset
+
+FROM build as final
 
 COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 RUN chown -R nobody:nogroup /app
