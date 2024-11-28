@@ -12,6 +12,7 @@ RUN apt update && apt install -y \
   catatonit \
   wget \
   xz-utils \
+  yq \
   libarchive-tools \
   libfontconfig1 \
   libfreetype6 \
