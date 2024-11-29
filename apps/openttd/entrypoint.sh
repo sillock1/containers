@@ -5,8 +5,8 @@ autosave=`find /data/save/autosave -regex ".*autosave[0-9]+\.sav" | sort -n | ta
 
 echo $autosave
 
-if [ -z ${SAVEFILE} ]; then
-  echo "Loading save ${latestAutosave}"
+if [ ! -z ${SAVEFILE} ]; then
+  echo "Loading save ${save}"
   save=${SAVEFILE}
 elif [ ! -z ${autosave} ]; then
   echo "Loading autosave file ${autosave}"
