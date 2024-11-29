@@ -3,8 +3,6 @@
 declare save
 autosave=`find /data/save/autosave -regex ".*autosave[0-9]+\.sav" | sort -n | tail -n 1 2>/dev/null`
 
-echo $autosave
-
 if [ ! -z ${SAVEFILE} ]; then
   echo "Loading save ${save}"
   save=${SAVEFILE}
