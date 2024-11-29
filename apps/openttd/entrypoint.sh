@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare save
-autosave=`find /config/save/autosave -regex ".*autosave[0-9]+\.sav" 2>/dev/null`
+autosave=`find /data/save/autosave -regex ".*autosave[0-9]+\.sav" | sort -n | tail -n 1 2>/dev/null`
 
 echo $autosave
 
@@ -15,4 +15,4 @@ else
   echo "No autosave found and no specific save file passed"
 fi
 
-exec /app/openttd/openttd -c /config/openttd.cfg -D -g ${save} -x "$@"
+exec /app/openttd/openttd -c /data/openttd.cfg -D -g ${save} -x "$@"
