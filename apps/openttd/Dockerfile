@@ -38,7 +38,7 @@ RUN apt update && apt install -y \
 COPY --from=build /app /app
 COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 
-VOLUME ["/config"]
+VOLUME ["/data"]
 
 USER nobody:nogroup
 
