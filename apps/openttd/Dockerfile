@@ -33,7 +33,6 @@ RUN apt update && apt install -y \
   libgomp1 \
   curl \
   catatonit \
-  envsubst \
   ca-certificates
 
 COPY --from=build /app /app
