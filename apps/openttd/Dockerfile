@@ -33,7 +33,8 @@ RUN apt update && apt install -y \
   libgomp1 \
   curl \
   catatonit \
-  ca-certificates
+  ca-certificates \
+  gettext-base
 
 COPY --from=build /app /app
 COPY ./apps/openttd/private.cfg.tmpl /app/openttd/private.cfg.tmpl
