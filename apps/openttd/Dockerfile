@@ -33,9 +33,12 @@ RUN apt update && apt install -y \
   libgomp1 \
   curl \
   catatonit \
+  envsubst \
   ca-certificates
 
 COPY --from=build /app /app
+COPY ./apps/openttd/private.cfg.tmpl /app/openttd/private.cfg.tmpl
+COPY ./apps/openttd/secrets.cfg.tmpl /app/openttd/secrets.cfg.tmpl
 COPY --chmod=755 ./apps/openttd/entrypoint.sh /entrypoint.sh
 
 VOLUME ["/data"]

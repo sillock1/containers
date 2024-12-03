@@ -13,7 +13,7 @@ else
   echo "No autosave found and no specific save file passed"
 fi
 
-envsubst < apps/openttd/private.cfg.tmpl > /data/private.cfg
-envsubst < apps/openttd/secrets.cfg.tmpl > /data/secrets.cfg
+envsubst < /app/openttd/private.cfg.tmpl > /data/private.cfg
+envsubst < /app/openttd/secrets.cfg.tmpl > /data/secrets.cfg
 
 exec /app/openttd/openttd -c /data/openttd.cfg -D -g ${save} -x "$@"
