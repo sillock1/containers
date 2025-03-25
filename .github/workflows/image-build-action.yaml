@@ -32,7 +32,7 @@ jobs:
     runs-on: ${{ matrix.platform == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
     strategy:
       matrix:
-        platform: ${{ fromJSON(inputs.platforms) || ["amd64", "arm64"] }}
+        platform: ${{ fromJSON(inputs.platforms) }}
       fail-fast: false
     outputs:
       amd64: ${{ steps.digest.outputs.amd64 }}
