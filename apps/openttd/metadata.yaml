@@ -1,4 +1,4 @@
 ---
-# renovate: datasource=github-releases depName=OpenTTD/OpenTTD
+# renovate: datasource=github-releases depName=OpenTTD/OpenTTD versioning=loose
 version: 15.0-beta1
 name: openttd
