@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#shellcheck disable=SC2086
 
 declare save
 autosave=`find /data/save/autosave -regex ".*autosave[0-9]+\.sav" | sort -n | tail -n 1 2>/dev/null`
