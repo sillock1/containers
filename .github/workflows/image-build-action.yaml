@@ -132,7 +132,7 @@ jobs:
       - name: Merge platform and digests
         id: merge
         run: |
-          echo "images=$(jq -r 'map("ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}@" + ${{ toJson(needs.build.outputs) }}) | join (",")')" >> $GITHUB_OUTPUT
+          echo "images=$(echo '${{ toJson(needs.build.outputs) }}' | jq -r 'map("ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}@" + .) | join (",")')" >> $GITHUB_OUTPUT
 
       - name: Push Images
         uses: Noelware/docker-manifest-action@b33ab348026b120a895167160f5605b0197f0862 # 0.4.3
