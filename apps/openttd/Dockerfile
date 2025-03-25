@@ -1,6 +1,8 @@
 
-ARG VERSION
 FROM docker.io/library/debian:12.9-slim as build
+
+ARG TARGETARCH
+ARG TARGETPLATFORM
 ARG VERSION
 
 RUN apt update && apt install -y \
@@ -48,4 +50,4 @@ USER nobody:nogroup
 EXPOSE 3979/tcp
 EXPOSE 3979/udp
 
-ENTRYPOINT ["catatonit", "--", "/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/catatonit", "--", "/entrypoint.sh"]
