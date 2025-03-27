@@ -13,10 +13,11 @@ on:
         type: string
         description: Version
         required: true
-      platforms:
-        type: string
-        description: Override platform builds
+      amd64only:
+        type: boolean
+        description: Skip ARM build
         required: false
+        default: false
       release:
         type: boolean
         description: Release
@@ -34,10 +35,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: linux/amd64
+          - platform: amd64
             runner: ubuntu-latest
-          - platform: linux/arm64
+          - platform: arm64
             runner: ubuntu-24.04-arm
+        exclude:
+          - arm64: ${{ amd64only }}
     outputs:
       amd64: ${{ steps.digest.outputs.amd64 }}
       arm64: ${{ steps.digest.outputs.arm64 }}
@@ -100,7 +103,7 @@ jobs:
         name: Export Digest
         id: digest
         run: |
-          echo "${{ matrix.platform }}=${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
+          echo "${{ steps.vars.outputs.platform-arch }}=${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
 
   release:
     if: ${{ inputs.release }}
