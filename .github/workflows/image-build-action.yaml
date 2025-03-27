@@ -13,6 +13,10 @@ on:
         type: string
         description: Version
         required: true
+      platforms:
+        type: string
+        description: Override platform builds
+        required: false
       release:
         type: boolean
         description: Release
@@ -28,7 +32,7 @@ jobs:
     runs-on: ${{ matrix.platform == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
     strategy:
       matrix:
-        platform: ["amd64", "arm64"]
+        platform: ${{ fromJSON(inputs.platforms) }}
       fail-fast: false
     outputs:
       amd64: ${{ steps.digest.outputs.amd64 }}
@@ -125,14 +129,18 @@ jobs:
             type=raw,value=${{ steps.version.outputs.raw }},enable=${{ steps.version.outputs.is-valid-semver }}
             type=raw,value=rolling
 
+      - name: Merge platform and digests
+        id: merge
+        run: |
+          echo "images=$(echo '${{ toJson(needs.build.outputs) }}' | jq -r 'map("ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}@" + .) | join (",")')" >> $GITHUB_OUTPUT
+
       - name: Push Images
         uses: Noelware/docker-manifest-action@b33ab348026b120a895167160f5605b0197f0862 # 0.4.3
         id: push
         with:
           inputs: ${{ join(fromJSON(steps.meta.outputs.json).tags, ',') }}
           images: >-
-            ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}@${{ needs.build.outputs.amd64 }},
-            ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}@${{ needs.build.outputs.arm64 }}
+            ${{ steps.merge.outputs.images }}
           push: true
 
       - name: Export Digest

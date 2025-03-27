@@ -14,7 +14,11 @@ RUN apt update && apt install -y \
 WORKDIR /app
 
 RUN mkdir -p /app/openttd \
-  && curl -fsSL https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-amd64.tar.xz \
+  && \
+  case "${TARGETPLATFORM}" in \
+  'linux/amd64') export ARCH='amd64' ;; \
+  esac \
+  && curl -fsSL https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-${ARCH}.tar.xz \
   | tar xJf - -C /tmp \
   && mv /tmp/openttd-${VERSION}-linux-generic-amd64/* /app/openttd
 
