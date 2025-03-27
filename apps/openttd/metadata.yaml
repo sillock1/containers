@@ -2,4 +2,4 @@
 # renovate: datasource=github-releases depName=OpenTTD/OpenTTD versioning=loose
 version: 15.0-beta1
 name: openttd
-platforms: [ amd64 ]
+amd64only: true
