@@ -1,5 +1,5 @@
 
-FROM docker.io/library/debian:12.9-slim as build
+FROM docker.io/library/debian:12.10-slim as build
 
 ARG TARGETARCH
 ARG TARGETPLATFORM
@@ -32,7 +32,7 @@ RUN mkdir -p /app/openttd/baseset \
 
 RUN chown -R nobody:nogroup /app
 
-FROM docker.io/library/debian:12.9-slim as final
+FROM docker.io/library/debian:12.10-slim as final
 
 RUN apt update && apt install -y \
   libglib2.0-0 \
