@@ -46,7 +46,7 @@ runs:
               return `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`;
           }
 
-          const parsedSemver = semver.coerce(parsedVersion[0], { includePrerelease: true });
+          const parsedSemver = semver.coerce(upstreamVersion, { includePrerelease: true });
           const isValidSemver = parsedSemver !== null;
           const semanticVersion = parsedSemver !== null ? parsedSemver : calver();
           const rawVersion = isValidSemver ? sanitize(upstreamVersion) : upstreamVersion;
