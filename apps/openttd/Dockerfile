@@ -33,7 +33,11 @@ RUN mkdir -p /app/baseset \
   | xargs -I {} curl -fsSL https://cdn.openttd.org/opengfx-releases/{}/opengfx-{}-all.zip \
   | bsdtar -xvf - -C /tmp \
   && tar xf /tmp/opengfx*.tar -C /tmp \
-  && mv /tmp/opengfx*/* /app/baseset
+  && mv /tmp/opengfx*/* /app/baseset \
+  && rm -rf /tmp/* \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && chmod -R 755 /app
 
 COPY . /
 
