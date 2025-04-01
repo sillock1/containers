@@ -52,15 +52,14 @@ runs:
           }
 
           const upstreamVersion = '${{ inputs.upstream-version }}';
-          const strictSemverRegex = /^v?(\d+(\.\d+)?(\.\d+)?)/;
+          const strictSemverRegex = /^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;
 
           const parsedVersion = strictSemverRegex.exec(upstreamVersion);
           const isValidSemver = parsedVersion !== null;
-          const parsedSemver = isValidSemver ? semver.coerce(parsedVersion[0]) : null;
-          const semanticVersion = isValidSemver ? `${parsedSemver.major}.${parsedSemver.minor}.${parsedSemver.patch}` : calver();
+          const parsedSemver = isValidSemver ? semver.coerce(parsedVersion[0]) : calver();
           const rawVersion = isValidSemver ? sanitize(upstreamVersion) : upstreamVersion;
 
           core.setOutput('is-valid-semver', isValidSemver);
-          core.setOutput('semantic', semanticVersion);
+          core.setOutput('semantic', parsedSemver);
           core.setOutput('raw', rawVersion);
           core.setOutput('upstream', upstreamVersion);
