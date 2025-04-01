@@ -54,10 +54,7 @@ jobs:
           images: |
             ghcr.io/${{ steps.vars.outputs.repository-owner }}/${{ inputs.app }}
           tags: |
-            type=semver,pattern={{version}},value=${{ steps.image-versions.outputs.semantic }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ steps.image-versions.outputs.semantic }},enable=${{ steps.image-versions.outputs.is-valid-semver }}
-            type=semver,pattern={{major}},value=${{ steps.image-versions.outputs.semantic }},enable=${{ steps.image-versions.outputs.is-valid-semver }}
-            type=raw,value=${{ steps.image-versions.outputs.raw }},enable=${{ steps.image-versions.outputs.is-valid-semver }}
+            type=semver,pattern={{raw}},value=${{ steps.image-versions.outputs.version }}
             type=raw,value=rolling
 
       - name: Upload Bake Metadata
