@@ -49,7 +49,7 @@ runs:
           const upstreamVersion = '${{ inputs.upstream-version }}';
           const parsedSemver = semver.coerce(upstreamVersion, { includePrerelease: true });
           const isValidSemver = parsedSemver !== null;
-          const semanticVersion = parsedSemver !== null ? parsedSemver : calver();
+          const semanticVersion = parsedSemver !== null ? parsedSemver.version : calver();
 
           core.setOutput('is-valid-semver', isValidSemver);
           core.setOutput('semantic', semanticVersion);
