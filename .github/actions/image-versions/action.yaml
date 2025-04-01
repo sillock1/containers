@@ -41,25 +41,13 @@ runs:
         script: |
           const semver = require('semver');
 
-          // Strip the v prefix and pre-release info
-          function sanitize(version) {
-              return version.replace(/^v/, '').split('-')[0];
-          }
-
           function calver() {
               const now = new Date();
               return `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`;
           }
 
-          const upstreamVersion = '${{ inputs.upstream-version }}';
-          const strictSemverRegex = /^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;
+          const parsedSemver = semver.coerce(upstreamVersion, { includePrerelease: true });
+          const semanticVersion = parsedSemver !== null ? parsedSemver : calver();
 
-          const parsedVersion = strictSemverRegex.exec(upstreamVersion);
-          const isValidSemver = parsedVersion !== null;
-          const parsedSemver = isValidSemver ? semver.coerce(parsedVersion[0]) : calver();
-          const rawVersion = isValidSemver ? sanitize(upstreamVersion) : upstreamVersion;
-
-          core.setOutput('is-valid-semver', isValidSemver);
-          core.setOutput('semantic', parsedSemver);
-          core.setOutput('raw', rawVersion);
-          core.setOutput('upstream', upstreamVersion);
+          core.setOutput('is-valid-semver', parsedSemver !== null);
+          core.setOutput('version', semanticVersion);
