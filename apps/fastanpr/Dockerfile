@@ -32,7 +32,7 @@ RUN \
     ffmpeg \
     libsm6 \
     libxext6 \ 
-    && pip install --requirement "https://raw.githubusercontent.com/arvindrajan92/fastanpr/refs/tags/v${VERSION}/requirements.txt" \
+    && pip install --requirement https://raw.githubusercontent.com/arvindrajan92/fastanpr/refs/tags/v${VERSION}/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && apt-get autoremove -y \
     && apt-get clean \
