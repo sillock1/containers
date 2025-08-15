@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM docker.io/library/python:3.12.11-alpine3.22
+FROM docker.io/library/python:3.11-slim
 ARG VERSION
 
 ENV \
@@ -18,30 +18,26 @@ USER root
 WORKDIR /app
 
 RUN \
-    apk add --no-cache \
-        bash \
-        ca-certificates \
-        catatonit \
-        coreutils \
-        curl \
-        jq \
-        nano \
-        tzdata \
+  apt-get update \
     && \
-    apk add --no-cache --virtual .build-deps \
-        build-base \
-        libffi-dev \
-        musl-dev \
-        openssl-dev \
-    && pip install uv \
-    && uv pip install \
+    apt-get install -y --no-install-recommends --no-install-suggests \
+    bash \
+    ca-certificates \
+    catatonit \
+    coreutils \
+    curl \
+    jq \
+    nano \
+    tzdata \
+    glibc \
+    ffmpeg \
+    libsm6 \
+    libxext6 \ 
+    && pip install \
         --requirement "https://raw.githubusercontent.com/arvindrajan92/fastanpr/refs/tags/v${VERSION}/requirements.txt" \
-    && mkdir -p /app \
-    && curl -fsSL "https://github.com/arvindrajan92/fastanpr/archive/refs/tags/v${VERSION}.tar.gz" \
-        | tar xzf - -C /app --strip-components 1 \
-    && chown -R root:root /app && chmod -R 755 /app \
-    && pip uninstall --yes uv && apk del --purge .build-deps \
-    && rm -rf /root/.cache /tmp/*
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    && apt-get autoremove -y \
+    && apt-get clean
 
 COPY . /
 
