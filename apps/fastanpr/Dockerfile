@@ -35,7 +35,8 @@ RUN \
     && pip install --requirement "https://raw.githubusercontent.com/arvindrajan92/fastanpr/refs/tags/v${VERSION}/requirements.txt" \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && apt-get autoremove -y \
-    && apt-get clean
+    && apt-get clean \
+    && chmod -R 755 /app
 
 COPY . /
 
