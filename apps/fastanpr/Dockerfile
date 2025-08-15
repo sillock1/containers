@@ -29,7 +29,6 @@ RUN \
     jq \
     nano \
     tzdata \
-    glibc \
     ffmpeg \
     libsm6 \
     libxext6 \ 
