@@ -1,5 +1,5 @@
 
-FROM docker.io/library/debian:13.0-slim as build
+FROM docker.io/library/debian:13.1-slim as build
 
 ARG TARGETPLATFORM
 ARG VERSION
