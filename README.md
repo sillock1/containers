@@ -1,8 +1,6 @@
-<!---
-NOTE: AUTO-GENERATED FILE
-to edit this file, instead edit its template at: ./scripts/templates/README.md.j2
--->
-<div align="center">
-
+> [!IMPORTANT]  
+> This repository has been migrated to Forgejo here https://codeberg.org/sillock/containers
+> 
+> GitHub has been lacking in features, taking years to fix glaringly single bugs, focusing heavily on AI integration, and pushing for more monetisation with the charging of self hosted runners in private repos
 
 ## Containers
