@@ -53,7 +53,7 @@ jobs:
         uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad # v4.0.0
 
       - name: Install regctl
-        uses: regclient/actions/regctl-installer@dfcdd51be2f038ffcf0713bceea66a572ade98b9 # main
+        uses: regclient/actions/regctl-installer@148669fe4b19151fcab6e00c6df2db43b9e2b097 # main
 
       - name: Get Bake Options
         id: bake-options
