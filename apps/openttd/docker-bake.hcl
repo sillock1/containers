@@ -2,7 +2,7 @@ target "docker-metadata-action" {}
 
 variable "VERSION" {
   // renovate: datasource=github-releases depName=OpenTTD/OpenTTD versioning=loose
-  default = "15.1"
+  default = "15.3"
 }
 
 group "default" {
